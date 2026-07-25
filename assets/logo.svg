@@ -1,0 +1,31 @@
+<!-- TODO: Replace with the official Al-Nahran Trading Co. logo file when available.
+     This is a hand-built recreation based on the real logo for placeholder use. -->
+<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Al-Nahran Trading Co.">
+  <g transform="rotate(20 60 60)">
+    <ellipse cx="60" cy="60" rx="42" ry="42" fill="none" stroke="#D6222E" stroke-width="6"
+      stroke-linecap="round" stroke-dasharray="230 40"/>
+  </g>
+  <g>
+    <!-- 12 tick marks around the implied circle -->
+    <g stroke="#D6222E" stroke-width="1.6" stroke-linecap="round">
+      <line x1="60" y1="16" x2="60" y2="22"/>
+      <line x1="88" y1="26" x2="84" y2="31"/>
+      <line x1="104" y1="60" x2="98" y2="60"/>
+      <line x1="88" y1="94" x2="84" y2="89"/>
+      <line x1="60" y1="104" x2="60" y2="98"/>
+      <line x1="32" y1="94" x2="36" y2="89"/>
+      <line x1="16" y1="60" x2="22" y2="60"/>
+      <line x1="32" y1="26" x2="36" y2="31"/>
+      <line x1="74" y1="19" x2="71" y2="24"/>
+      <line x1="97" y1="42" x2="92" y2="45"/>
+      <line x1="97" y1="78" x2="92" y2="75"/>
+      <line x1="74" y1="101" x2="71" y2="96"/>
+    </g>
+  </g>
+  <text x="24" y="84" font-family="Georgia, 'Fraunces', serif" font-size="74" font-weight="900" fill="#1A1A1C" letter-spacing="-2">N</text>
+  <g stroke="#1A1A1C" stroke-width="2.5" stroke-linecap="round">
+    <line x1="60" y1="60" x2="48" y2="72"/>
+    <line x1="60" y1="60" x2="82" y2="38"/>
+    <circle cx="60" cy="60" r="2.4" fill="#D6222E" stroke="none"/>
+  </g>
+</svg>
