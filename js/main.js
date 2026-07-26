@@ -358,6 +358,21 @@ function buildWatchTicks() {
   }
 }
 
+/* ---------------- Live second hand ---------------- */
+function setupSecondHand() {
+  const secHand = document.querySelector(".hand-sec");
+  if (!secHand) return;
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce) return; // respect reduced-motion: leave it static
+  function tick() {
+    const ms = Date.now() % 60000;
+    const angle = (ms / 1000) * 6; // 360deg / 60s = 6deg per second, smooth sub-second sweep
+    secHand.style.transform = `translate(-50%, -100%) rotate(${angle}deg)`;
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
 /* ---------------- WhatsApp links ---------------- */
 function wireWhatsAppLinks() {
   ["waNavBtn", "waMobileBtn", "waHeroLink", "waContactLink", "waFooterLink", "waFab"].forEach((id) => {
@@ -388,6 +403,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupNav();
   setupHeroParallax();
   setupWholesaleForm();
+  setupSecondHand();
 
   document.getElementById("langSwitch")?.addEventListener("click", toggleLocale);
   document.getElementById("langSwitchMobile")?.addEventListener("click", toggleLocale);
