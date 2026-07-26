@@ -446,25 +446,57 @@ function setupWatchCardTilt() {
   });
 }
 
-/* ---------------- Global cursor glow ---------------- */
+/* ---------------- Global cursor glow + trail ---------------- */
 function setupCursorGlow() {
   const glow = document.getElementById("cursorGlow");
   if (!glow || !tiltEnabled) return;
-  let x = 0, y = 0, shown = false;
+
+  // Build a short chain of tapering trail dots behind the main glow.
+  const sizes = [46, 34, 24, 16, 10];
+  const trail = sizes.map((size) => {
+    const dot = document.createElement("div");
+    dot.className = "cursor-trail-dot";
+    dot.style.width = `${size}px`;
+    dot.style.height = `${size}px`;
+    document.body.appendChild(dot);
+    return { el: dot, x: 0, y: 0 };
+  });
+
+  let mouseX = 0, mouseY = 0;
+  let shown = false;
+
   document.addEventListener(
     "mousemove",
     (e) => {
-      x = e.clientX;
-      y = e.clientY;
-      glow.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
+      mouseX = e.clientX;
+      mouseY = e.clientY;
       if (!shown) {
         glow.classList.add("active");
+        trail.forEach((p) => p.el.classList.add("active"));
+        trail.forEach((p) => { p.x = mouseX; p.y = mouseY; });
         shown = true;
       }
     },
     { passive: true }
   );
-  document.addEventListener("mouseleave", () => glow.classList.remove("active"));
+  document.addEventListener("mouseleave", () => {
+    glow.classList.remove("active");
+    trail.forEach((p) => p.el.classList.remove("active"));
+  });
+
+  function animate() {
+    glow.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
+    let leaderX = mouseX, leaderY = mouseY;
+    trail.forEach((point) => {
+      point.x += (leaderX - point.x) * 0.32;
+      point.y += (leaderY - point.y) * 0.32;
+      point.el.style.transform = `translate(${point.x}px, ${point.y}px) translate(-50%, -50%)`;
+      leaderX = point.x;
+      leaderY = point.y;
+    });
+    requestAnimationFrame(animate);
+  }
+  requestAnimationFrame(animate);
 }
 
 /* ---------------- WhatsApp links ---------------- */
