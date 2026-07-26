@@ -394,7 +394,7 @@ function setupCityCardSpotlight() {
 // Watch category cards are static, so this only needs to run once.
 function setupWatchCardTilt() {
   if (!tiltEnabled) return;
-  const maxTilt = 7;
+  const maxTilt = 12;
   document.querySelectorAll(".watch-card").forEach((card) => {
     card.addEventListener("mouseenter", () => card.classList.add("tilting"));
     card.addEventListener("mousemove", (e) => {

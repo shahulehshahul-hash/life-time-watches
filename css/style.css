@@ -658,12 +658,12 @@ html[dir="rtl"] .city-card h3 { font-family: var(--font-arabic); }
   inset: 0;
   opacity: 0;
   transition: opacity 0.35s var(--ease);
-  background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,0.08), transparent 65%);
+  background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 50%), rgba(214,34,46,0.20), rgba(255,255,255,0.05) 40%, transparent 70%);
   pointer-events: none;
   z-index: 0;
 }
 .watch-card:hover::before { opacity: 1; }
-.watch-card:hover { border-color: var(--border-strong); box-shadow: 0 24px 50px -24px rgba(0,0,0,0.65); }
+.watch-card:hover { border-color: var(--crimson); box-shadow: 0 28px 60px -24px rgba(0,0,0,0.7), 0 0 0 1px rgba(214,34,46,0.25); }
 .watch-card .swatch {
   height: 160px;
   position: relative;
