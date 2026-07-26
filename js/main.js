@@ -310,7 +310,19 @@ function setupNav() {
   mobileMenu.querySelectorAll(".mm-link").forEach((a) => a.addEventListener("click", close));
 }
 
-/* ---------------- Hero parallax ---------------- */
+/* ---------------- Hero parallax + 3D cursor tilt ---------------- */
+let heroScrollT = 0, heroScrollS = 1, heroScrollO = 1;
+let heroTiltX = 0, heroTiltY = 0;
+
+function applyHeroWatchTransform() {
+  const stage = document.getElementById("watchStage");
+  if (!stage) return;
+  stage.style.transform =
+    `translateY(${heroScrollT}px) scale(${heroScrollS}) ` +
+    `perspective(1200px) rotateX(${heroTiltX}deg) rotateY(${heroTiltY}deg)`;
+  stage.style.opacity = String(heroScrollO);
+}
+
 function setupHeroParallax() {
   const stage = document.getElementById("watchStage");
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -323,16 +335,36 @@ function setupHeroParallax() {
       ticking = true;
       requestAnimationFrame(() => {
         const y = Math.min(window.scrollY, 600);
-        const translate = (y / 600) * 100;
-        const scale = 1 + (y / 600) * 0.06;
-        const opacity = 1 - (y / 600) * 0.5;
-        stage.style.transform = `translateY(${translate}px) scale(${scale})`;
-        stage.style.opacity = String(Math.max(opacity, 0.5));
+        heroScrollT = (y / 600) * 100;
+        heroScrollS = 1 + (y / 600) * 0.06;
+        heroScrollO = Math.max(1 - (y / 600) * 0.5, 0.5);
+        applyHeroWatchTransform();
         ticking = false;
       });
     },
     { passive: true }
   );
+}
+
+function setupHeroTilt() {
+  const heroSection = document.getElementById("top");
+  const stage = document.getElementById("watchStage");
+  if (!heroSection || !stage || !tiltEnabled) return;
+  const maxHeroTiltX = 10;
+  const maxHeroTiltY = 16;
+  heroSection.addEventListener("mousemove", (e) => {
+    const rect = heroSection.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width;
+    const py = (e.clientY - rect.top) / rect.height;
+    heroTiltX = (0.5 - py) * maxHeroTiltX;
+    heroTiltY = (px - 0.5) * maxHeroTiltY;
+    applyHeroWatchTransform();
+  });
+  heroSection.addEventListener("mouseleave", () => {
+    heroTiltX = 0;
+    heroTiltY = 0;
+    applyHeroWatchTransform();
+  });
 }
 
 /* ---------------- Watch face tick marks (generated once) ---------------- */
@@ -443,6 +475,7 @@ document.addEventListener("DOMContentLoaded", () => {
   wireWhatsAppLinks();
   setupNav();
   setupHeroParallax();
+  setupHeroTilt();
   setupWholesaleForm();
   setupSecondHand();
   setupWatchCardTilt();
