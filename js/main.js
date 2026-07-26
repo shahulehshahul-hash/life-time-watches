@@ -446,57 +446,55 @@ function setupWatchCardTilt() {
   });
 }
 
-/* ---------------- Global cursor glow + trail ---------------- */
+/* ---------------- Global cursor glow (canvas fade trail) ---------------- */
 function setupCursorGlow() {
-  const glow = document.getElementById("cursorGlow");
-  if (!glow || !tiltEnabled) return;
+  const canvas = document.getElementById("cursorGlowCanvas");
+  if (!canvas || !tiltEnabled) return;
+  const ctx = canvas.getContext("2d");
 
-  // Build a short chain of tapering trail dots behind the main glow.
-  const sizes = [46, 34, 24, 16, 10];
-  const trail = sizes.map((size) => {
-    const dot = document.createElement("div");
-    dot.className = "cursor-trail-dot";
-    dot.style.width = `${size}px`;
-    dot.style.height = `${size}px`;
-    document.body.appendChild(dot);
-    return { el: dot, x: 0, y: 0 };
-  });
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener("resize", resize);
 
-  let mouseX = 0, mouseY = 0;
-  let shown = false;
-
+  let mouseX = 0, mouseY = 0, hasMoved = false;
   document.addEventListener(
     "mousemove",
     (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      if (!shown) {
-        glow.classList.add("active");
-        trail.forEach((p) => p.el.classList.add("active"));
-        trail.forEach((p) => { p.x = mouseX; p.y = mouseY; });
-        shown = true;
+      if (!hasMoved) {
+        hasMoved = true;
+        canvas.classList.add("active");
       }
     },
     { passive: true }
   );
-  document.addEventListener("mouseleave", () => {
-    glow.classList.remove("active");
-    trail.forEach((p) => p.el.classList.remove("active"));
-  });
+  document.addEventListener("mouseleave", () => canvas.classList.remove("active"));
 
-  function animate() {
-    glow.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
-    let leaderX = mouseX, leaderY = mouseY;
-    trail.forEach((point) => {
-      point.x += (leaderX - point.x) * 0.32;
-      point.y += (leaderY - point.y) * 0.32;
-      point.el.style.transform = `translate(${point.x}px, ${point.y}px) translate(-50%, -50%)`;
-      leaderX = point.x;
-      leaderY = point.y;
-    });
-    requestAnimationFrame(animate);
+  const radius = 26; // small, tight point of light
+
+  function loop() {
+    // Erase a little of the previous frame each tick — this is what makes the trail dissolve smoothly.
+    ctx.globalCompositeOperation = "destination-out";
+    ctx.fillStyle = "rgba(0,0,0,0.14)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    if (hasMoved) {
+      ctx.globalCompositeOperation = "source-over";
+      const grad = ctx.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, radius);
+      grad.addColorStop(0, "rgba(214,34,46,0.55)");
+      grad.addColorStop(1, "rgba(214,34,46,0)");
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(mouseX, mouseY, radius, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    requestAnimationFrame(loop);
   }
-  requestAnimationFrame(animate);
+  requestAnimationFrame(loop);
 }
 
 /* ---------------- WhatsApp links ---------------- */
