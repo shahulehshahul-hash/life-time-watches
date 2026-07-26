@@ -853,20 +853,6 @@ html[dir="rtl"] .watch-card h3 { font-family: var(--font-arabic); }
   .fab-whatsapp::after { animation: none; display: none; }
 }
 
-/* ---------- Cursor glow (canvas trail) ---------- */
-#cursorGlowCanvas {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 40;
-  mix-blend-mode: screen;
-  opacity: 0;
-  transition: opacity 0.5s var(--ease);
-}
-#cursorGlowCanvas.active { opacity: 1; }
-
 /* Utility */
 .text-center { text-align: center; }
 .mt-8 { margin-top: 8px; }

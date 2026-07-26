@@ -446,57 +446,6 @@ function setupWatchCardTilt() {
   });
 }
 
-/* ---------------- Global cursor glow (canvas fade trail) ---------------- */
-function setupCursorGlow() {
-  const canvas = document.getElementById("cursorGlowCanvas");
-  if (!canvas || !tiltEnabled) return;
-  const ctx = canvas.getContext("2d");
-
-  function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-  resize();
-  window.addEventListener("resize", resize);
-
-  let mouseX = 0, mouseY = 0, hasMoved = false;
-  document.addEventListener(
-    "mousemove",
-    (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      if (!hasMoved) {
-        hasMoved = true;
-        canvas.classList.add("active");
-      }
-    },
-    { passive: true }
-  );
-  document.addEventListener("mouseleave", () => canvas.classList.remove("active"));
-
-  const radius = 26; // small, tight point of light
-
-  function loop() {
-    // Erase a little of the previous frame each tick — this is what makes the trail dissolve smoothly.
-    ctx.globalCompositeOperation = "destination-out";
-    ctx.fillStyle = "rgba(0,0,0,0.14)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    if (hasMoved) {
-      ctx.globalCompositeOperation = "source-over";
-      const grad = ctx.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, radius);
-      grad.addColorStop(0, "rgba(214,34,46,0.55)");
-      grad.addColorStop(1, "rgba(214,34,46,0)");
-      ctx.fillStyle = grad;
-      ctx.beginPath();
-      ctx.arc(mouseX, mouseY, radius, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    requestAnimationFrame(loop);
-  }
-  requestAnimationFrame(loop);
-}
-
 /* ---------------- WhatsApp links ---------------- */
 function wireWhatsAppLinks() {
   ["waNavBtn", "waMobileBtn", "waHeroLink", "waContactLink", "waFooterLink", "waFab"].forEach((id) => {
@@ -530,7 +479,6 @@ document.addEventListener("DOMContentLoaded", () => {
   setupWholesaleForm();
   setupSecondHand();
   setupWatchCardTilt();
-  setupCursorGlow();
 
   document.getElementById("langSwitch")?.addEventListener("click", toggleLocale);
   document.getElementById("langSwitchMobile")?.addEventListener("click", toggleLocale);
