@@ -270,6 +270,7 @@ function renderCities(locale) {
     grid.appendChild(card);
   });
   observeReveals();
+  setupCityCardSpotlight();
 }
 
 /* ---------------- Scroll reveal ---------------- */
@@ -373,6 +374,46 @@ function setupSecondHand() {
   requestAnimationFrame(tick);
 }
 
+/* ---------------- Card tilt + spotlight (desktop pointer only) ---------------- */
+const canHoverTilt = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+const reduceMotionTilt = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const tiltEnabled = canHoverTilt && !reduceMotionTilt;
+
+// City cards are rebuilt every time the language toggles, so this runs after each render.
+function setupCityCardSpotlight() {
+  if (!tiltEnabled) return;
+  document.querySelectorAll(".city-card").forEach((card) => {
+    card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect();
+      card.style.setProperty("--mx", `${((e.clientX - rect.left) / rect.width) * 100}%`);
+      card.style.setProperty("--my", `${((e.clientY - rect.top) / rect.height) * 100}%`);
+    });
+  });
+}
+
+// Watch category cards are static, so this only needs to run once.
+function setupWatchCardTilt() {
+  if (!tiltEnabled) return;
+  const maxTilt = 7;
+  document.querySelectorAll(".watch-card").forEach((card) => {
+    card.addEventListener("mouseenter", () => card.classList.add("tilting"));
+    card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect();
+      const px = (e.clientX - rect.left) / rect.width;
+      const py = (e.clientY - rect.top) / rect.height;
+      const rx = (0.5 - py) * maxTilt;
+      const ry = (px - 0.5) * maxTilt;
+      card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`;
+      card.style.setProperty("--mx", `${px * 100}%`);
+      card.style.setProperty("--my", `${py * 100}%`);
+    });
+    card.addEventListener("mouseleave", () => {
+      card.classList.remove("tilting");
+      card.style.transform = "";
+    });
+  });
+}
+
 /* ---------------- WhatsApp links ---------------- */
 function wireWhatsAppLinks() {
   ["waNavBtn", "waMobileBtn", "waHeroLink", "waContactLink", "waFooterLink", "waFab"].forEach((id) => {
@@ -404,6 +445,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupHeroParallax();
   setupWholesaleForm();
   setupSecondHand();
+  setupWatchCardTilt();
 
   document.getElementById("langSwitch")?.addEventListener("click", toggleLocale);
   document.getElementById("langSwitchMobile")?.addEventListener("click", toggleLocale);
