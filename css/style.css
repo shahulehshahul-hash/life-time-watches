@@ -369,14 +369,22 @@ html[dir="rtl"] .mobile-links a { font-family: var(--font-arabic); }
 }
 .watch-ring-outer .tick {
   position: absolute;
-  left: 50%;
-  top: 0;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  pointer-events: none;
+}
+.watch-ring-outer .tick::before {
+  content: "";
   width: 1px;
   height: 8px;
+  margin-top: 0;
   background: var(--silver-dark);
-  transform-origin: 50% 50vh;
+  opacity: 0.55;
+  border-radius: 1px;
 }
-.watch-ring-outer .tick.major { width: 2px; height: 14px; background: var(--silver); }
+.watch-ring-outer .tick.major::before { width: 2px; height: 14px; background: var(--silver); opacity: 0.95; }
 .watch-ring-crimson {
   position: absolute;
   inset: 14%;
@@ -400,12 +408,19 @@ html[dir="rtl"] .mobile-links a { font-family: var(--font-arabic); }
 }
 .watch-face .hour-tick {
   position: absolute;
-  left: 50%;
-  top: 8px;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  pointer-events: none;
+}
+.watch-face .hour-tick::before {
+  content: "";
+  margin-top: 8px;
   width: 2px;
   height: 8px;
   background: rgba(199,201,204,0.8);
-  transform-origin: 50% calc(50vw);
+  border-radius: 1px;
 }
 .hand {
   position: absolute;
