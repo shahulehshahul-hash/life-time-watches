@@ -446,6 +446,27 @@ function setupWatchCardTilt() {
   });
 }
 
+/* ---------------- Global cursor glow ---------------- */
+function setupCursorGlow() {
+  const glow = document.getElementById("cursorGlow");
+  if (!glow || !tiltEnabled) return;
+  let x = 0, y = 0, shown = false;
+  document.addEventListener(
+    "mousemove",
+    (e) => {
+      x = e.clientX;
+      y = e.clientY;
+      glow.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
+      if (!shown) {
+        glow.classList.add("active");
+        shown = true;
+      }
+    },
+    { passive: true }
+  );
+  document.addEventListener("mouseleave", () => glow.classList.remove("active"));
+}
+
 /* ---------------- WhatsApp links ---------------- */
 function wireWhatsAppLinks() {
   ["waNavBtn", "waMobileBtn", "waHeroLink", "waContactLink", "waFooterLink", "waFab"].forEach((id) => {
@@ -479,6 +500,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupWholesaleForm();
   setupSecondHand();
   setupWatchCardTilt();
+  setupCursorGlow();
 
   document.getElementById("langSwitch")?.addEventListener("click", toggleLocale);
   document.getElementById("langSwitchMobile")?.addEventListener("click", toggleLocale);
