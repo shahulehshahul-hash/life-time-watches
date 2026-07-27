@@ -696,12 +696,31 @@ html[dir="rtl"] .watch-card h3 { font-family: var(--font-arabic); }
   background-repeat: no-repeat, no-repeat;
   background-position: 58% 50%, center;
   background-size: 480px auto, cover;
-  transition: background-size 0.6s var(--ease), background-position 0.6s var(--ease);
+}
+.watch-card.cat-premium:hover {
+  overflow: visible;
+}
+.watch-card.cat-premium:hover .swatch {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 420px;
+  z-index: 25;
+  border-radius: var(--radius) var(--radius) 0 0;
+  box-shadow: 0 40px 90px -18px rgba(0,0,0,0.85), 0 0 0 1px var(--crimson);
+  transition: height 0.4s var(--ease), box-shadow 0.4s var(--ease);
 }
 .watch-card.cat-premium:hover .swatch::before {
+  background-color: var(--ink-card);
+  background-size: contain, cover;
+  background-position: center, center;
   transform: none;
-  background-size: 300px auto, cover;
-  background-position: 50% 40%, center;
+}
+.watch-card.cat-premium:hover .body {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
 }
 
 /* ---------- Wholesale ---------- */
