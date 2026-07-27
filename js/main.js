@@ -465,6 +465,18 @@ function setupCursorGlow() {
   document.addEventListener("mouseleave", () => glow.classList.remove("active"));
 }
 
+/* ---------------- Hero video: respect reduced motion ---------------- */
+function setupHeroVideo() {
+  const video = document.getElementById("heroWatchVideo");
+  if (!video) return;
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce) {
+    video.removeAttribute("autoplay");
+    video.pause();
+    video.currentTime = 0;
+  }
+}
+
 /* ---------------- WhatsApp links ---------------- */
 function wireWhatsAppLinks() {
   ["waNavBtn", "waMobileBtn", "waHeroLink", "waContactLink", "waFooterLink", "waFab"].forEach((id) => {
@@ -495,6 +507,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupNav();
   setupHeroParallax();
   setupHeroTilt();
+  setupHeroVideo();
   setupWholesaleForm();
   setupSecondHand();
   setupWatchCardTilt();
