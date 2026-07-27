@@ -16,6 +16,7 @@ Plain HTML/CSS/JS website. No build step — just edit the files directly on Git
 4. **Contact info** — `index.html`, the Contact section (`id="contact"`) and Footer have placeholder phone/email — same placeholders also live in `js/main.js` under `contact.phonePlaceholder` / `contact.emailPlaceholder`.
 5. **Wholesale form submissions** — right now the form just shows a "thank you" message and doesn't send anywhere (see `setupWholesaleForm()` in `js/main.js`). To actually receive submissions, connect it to a form service like Formspree, or a Google Sheet via Apps Script — ask me when you're ready and I'll wire it up.
 6. **Social links** — footer social icons (Instagram/X/Snapchat) currently link to `#`. Add real URLs once accounts exist.
+7. **Premium category photo** — `assets/watch-premium.jpg` is a Canva stock photo, currently used as the "Premium" category card image. Canva's standard license generally covers use *within* a Canva-made design, and extracting an asset for standalone reuse on an external site can fall outside that — worth checking your Canva plan's license terms (or licensing the photo directly) before this goes fully live. Easy to swap out once you have real product photography.
 
 ## Editing text
 All visible text lives in the `DICT` object near the top of `js/main.js` — one `en` block, one `ar` block, same structure. Change the English or Arabic version there and it updates everywhere the corresponding `data-i18n="..."` key is used in `index.html`.

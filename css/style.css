@@ -691,7 +691,9 @@ html[dir="rtl"] .watch-card h3 { font-family: var(--font-arabic); }
 .cat-digital .swatch::before { background: linear-gradient(135deg, #16232f, #10151a); }
 .cat-electronic .swatch::before { background: linear-gradient(135deg, #1c1c22, #0e0e11); }
 .cat-everyday .swatch::before { background: linear-gradient(135deg, #232322, #121211); }
-.cat-premium .swatch::before { background: linear-gradient(135deg, #3a2c12, #17130a); }
+.cat-premium .swatch::before {
+  background: url("../assets/watch-premium.jpg") center 20% / cover no-repeat, linear-gradient(135deg, #3a2c12, #17130a);
+}
 
 /* ---------- Wholesale ---------- */
 .wholesale-wrap {
