@@ -669,6 +669,7 @@ html[dir="rtl"] .city-card h3 { font-family: var(--font-arabic); }
   position: relative;
   overflow: hidden;
   z-index: 1;
+  transition: height 0.45s var(--ease), box-shadow 0.45s var(--ease);
 }
 .watch-card .swatch::before {
   content: "";
@@ -681,7 +682,7 @@ html[dir="rtl"] .city-card h3 { font-family: var(--font-arabic); }
   position: absolute; inset: 0;
   background: linear-gradient(180deg, transparent 40%, var(--ink-card) 100%);
 }
-.watch-card .body { padding: 20px 22px 24px; position: relative; z-index: 1; }
+.watch-card .body { padding: 20px 22px 24px; position: relative; z-index: 1; transition: opacity 0.2s ease; }
 .watch-card h3 { font-family: var(--font-sans); font-size: 1.05rem; font-weight: 600; }
 html[dir="rtl"] .watch-card h3 { font-family: var(--font-arabic); }
 .watch-card p { margin-top: 8px; font-size: 0.85rem; color: var(--silver-muted); }
@@ -702,25 +703,25 @@ html[dir="rtl"] .watch-card h3 { font-family: var(--font-arabic); }
 }
 .watch-card.cat-premium:hover .swatch {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
   height: 420px;
+  width: auto;
+  aspect-ratio: 671 / 852;
   z-index: 25;
-  border-radius: var(--radius) var(--radius) 0 0;
+  border-radius: var(--radius);
   box-shadow: 0 40px 90px -18px rgba(0,0,0,0.85), 0 0 0 1px var(--crimson);
-  transition: height 0.4s var(--ease), box-shadow 0.4s var(--ease);
 }
 .watch-card.cat-premium:hover .swatch::before {
   background-color: var(--ink-card);
-  background-size: contain, cover;
+  background-size: cover, cover;
   background-position: center, center;
   transform: none;
 }
 .watch-card.cat-premium:hover .body {
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.15s ease;
 }
 
 /* ---------- Wholesale ---------- */
