@@ -425,19 +425,37 @@ function setupCityCardSpotlight() {
 
 // Watch category cards are static, so this only needs to run once.
 /* ---------------- Perfume card: click dots to browse fragrances ---------------- */
+const PERFUMES = [
+  { name: "Ivory", file: "assets/perfume-ivory.jpg" },
+  { name: "Adore", file: "assets/perfume-adore.jpg" },
+  { name: "Flora", file: "assets/perfume-flora.jpg" },
+  { name: "Shabz", file: "assets/perfume-shabz.jpg" },
+];
+
 function setupPerfumeSwitcher() {
-  const swatch = document.querySelector(".cat-perfume .swatch");
-  const dots = document.querySelectorAll(".perfume-dot");
-  if (!swatch || !dots.length) return;
-  dots.forEach((dot) => {
-    dot.addEventListener("click", (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      const img = dot.getAttribute("data-img");
-      swatch.style.setProperty("--perfume-img", `url("${img}")`);
-      dots.forEach((d) => d.classList.remove("active"));
-      dot.classList.add("active");
-    });
+  const photo = document.getElementById("perfumePhoto");
+  const prevBtn = document.querySelector(".perfume-arrow.prev");
+  const nextBtn = document.querySelector(".perfume-arrow.next");
+  if (!photo || !prevBtn || !nextBtn) return;
+  let index = 0;
+
+  function render() {
+    photo.style.backgroundImage = `url("${PERFUMES[index].file}")`;
+    photo.setAttribute("aria-label", PERFUMES[index].name);
+  }
+  render();
+
+  prevBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    index = (index - 1 + PERFUMES.length) % PERFUMES.length;
+    render();
+  });
+  nextBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    index = (index + 1) % PERFUMES.length;
+    render();
   });
 }
 

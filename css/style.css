@@ -691,11 +691,14 @@ html[dir="rtl"] .watch-card h3 { font-family: var(--font-arabic); }
 .cat-fashion .swatch::before { background: linear-gradient(135deg, #3a1620, #171214); }
 .cat-digital .swatch::before { background: linear-gradient(135deg, #16232f, #10151a); }
 .cat-electronic .swatch::before { background: linear-gradient(135deg, #1c1c22, #0e0e11); }
-.cat-perfume .swatch::before {
-  background-image: var(--perfume-img, url("../assets/perfume-ivory.jpg")), linear-gradient(135deg, #232322, #121211);
-  background-repeat: no-repeat, no-repeat;
-  background-position: center 38%, center;
-  background-size: cover, cover;
+.perfume-photo {
+  position: absolute;
+  inset: 0;
+  background-color: #17130f;
+  background-repeat: no-repeat;
+  background-position: center 38%;
+  background-size: cover;
+  transition: opacity 0.25s ease;
 }
 .watch-card.cat-perfume:hover {
   overflow: visible;
@@ -711,44 +714,36 @@ html[dir="rtl"] .watch-card h3 { font-family: var(--font-arabic); }
   border-radius: var(--radius);
   box-shadow: 0 40px 90px -18px rgba(0,0,0,0.85), 0 0 0 1px var(--crimson);
 }
-.watch-card.cat-perfume:hover .swatch::before {
+.watch-card.cat-perfume:hover .perfume-photo {
   background-color: var(--ink-card);
-  background-size: contain, cover;
-  background-position: center, center;
-  transform: none;
+  background-size: contain;
+  background-position: center;
 }
 .watch-card.cat-perfume:hover .body {
   opacity: 0;
   pointer-events: none;
 }
-.perfume-nav {
+.perfume-arrow {
   position: absolute;
-  bottom: 14px;
-  inset-inline: 0;
-  z-index: 5;
-  display: none;
-  justify-content: center;
-  gap: 8px;
-}
-.watch-card.cat-perfume:hover .perfume-nav {
-  display: flex;
-}
-.perfume-dot {
-  width: 9px;
-  height: 9px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 6;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
-  border: 1px solid rgba(255,255,255,0.55);
-  background: rgba(255,255,255,0.12);
-  padding: 0;
+  border: 1px solid rgba(255,255,255,0.4);
+  background: rgba(11,11,12,0.6);
+  color: #fff;
+  display: none;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   transition: all 0.2s var(--ease);
 }
-.perfume-dot:hover { border-color: var(--crimson); }
-.perfume-dot.active {
-  background: var(--crimson);
-  border-color: var(--crimson);
-  transform: scale(1.2);
-}
+.perfume-arrow.prev { inset-inline-start: 10px; }
+.perfume-arrow.next { inset-inline-end: 10px; }
+.perfume-arrow:hover { background: var(--crimson); border-color: var(--crimson); }
+.watch-card.cat-perfume:hover .perfume-arrow { display: flex; }
 .cat-premium .swatch::before {
   background-image: url("../assets/watch-premium.jpg"), linear-gradient(135deg, #3a2c12, #17130a);
   background-repeat: no-repeat, no-repeat;
