@@ -60,7 +60,7 @@ const DICT = {
       fashionTitle: "Fashion", fashionBody: "Statement designs that follow the season's style.",
       digitalTitle: "Digital", digitalBody: "Modern digital displays for everyday clarity.",
       electronicTitle: "Electronic", electronicBody: "Smart features paired with dependable build quality.",
-      everydayTitle: "Everyday", everydayBody: "Reliable, comfortable pieces for daily wear.",
+      perfumeTitle: "Perfume", perfumeBody: "Signature fragrances from Cadeaux Perfume.",
       premiumTitle: "Premium", premiumBody: "Refined pieces for those who notice the details.",
     },
     wholesale: {
@@ -149,7 +149,7 @@ const DICT = {
       fashionTitle: "عصرية", fashionBody: "تصاميم مميزة تواكب أسلوب الموسم.",
       digitalTitle: "رقمية", digitalBody: "شاشات رقمية عصرية لوضوح يومي.",
       electronicTitle: "إلكترونية", electronicBody: "ميزات ذكية مع جودة تصنيع موثوقة.",
-      everydayTitle: "يومية", everydayBody: "قطع مريحة وموثوقة للاستخدام اليومي.",
+      perfumeTitle: "عطور", perfumeBody: "عطور مميزة من كادو للعطور.",
       premiumTitle: "فاخرة", premiumBody: "قطع راقية لمن يهتم بالتفاصيل.",
     },
     wholesale: {

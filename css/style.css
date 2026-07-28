@@ -691,7 +691,7 @@ html[dir="rtl"] .watch-card h3 { font-family: var(--font-arabic); }
 .cat-fashion .swatch::before { background: linear-gradient(135deg, #3a1620, #171214); }
 .cat-digital .swatch::before { background: linear-gradient(135deg, #16232f, #10151a); }
 .cat-electronic .swatch::before { background: linear-gradient(135deg, #1c1c22, #0e0e11); }
-.cat-everyday .swatch::before { background: linear-gradient(135deg, #232322, #121211); }
+.cat-perfume .swatch::before { background: url("../assets/perfume-ivory.jpg") center 38% / cover no-repeat, linear-gradient(135deg, #232322, #121211); }
 .cat-premium .swatch::before {
   background-image: url("../assets/watch-premium.jpg"), linear-gradient(135deg, #3a2c12, #17130a);
   background-repeat: no-repeat, no-repeat;
