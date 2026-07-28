@@ -427,7 +427,7 @@ function setupCityCardSpotlight() {
 function setupWatchCardTilt() {
   if (!tiltEnabled) return;
   const maxTilt = 12;
-  document.querySelectorAll(".watch-card").forEach((card) => {
+  document.querySelectorAll(".watch-card:not(.cat-premium)").forEach((card) => {
     card.addEventListener("mouseenter", () => card.classList.add("tilting"));
     card.addEventListener("mousemove", (e) => {
       const rect = card.getBoundingClientRect();
@@ -451,6 +451,7 @@ function setupCursorGlow() {
   const glow = document.getElementById("cursorGlow");
   if (!glow || !tiltEnabled) return;
   let shown = false;
+  let lastSparkle = 0;
   document.addEventListener(
     "mousemove",
     (e) => {
@@ -459,10 +460,29 @@ function setupCursorGlow() {
         glow.classList.add("active");
         shown = true;
       }
+      const now = performance.now();
+      if (now - lastSparkle > 60) {
+        lastSparkle = now;
+        spawnSparkle(e.clientX, e.clientY);
+      }
     },
     { passive: true }
   );
   document.addEventListener("mouseleave", () => glow.classList.remove("active"));
+}
+
+function spawnSparkle(x, y) {
+  const sparkle = document.createElement("div");
+  sparkle.className = "sparkle";
+  const jitterX = (Math.random() - 0.5) * 14;
+  const jitterY = (Math.random() - 0.5) * 14;
+  const size = 4 + Math.random() * 5;
+  sparkle.style.left = `${x + jitterX}px`;
+  sparkle.style.top = `${y + jitterY}px`;
+  sparkle.style.width = `${size}px`;
+  sparkle.style.height = `${size}px`;
+  document.body.appendChild(sparkle);
+  sparkle.addEventListener("animationend", () => sparkle.remove());
 }
 
 /* ---------------- Hero video: respect reduced motion ---------------- */

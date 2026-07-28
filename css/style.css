@@ -904,6 +904,25 @@ html[dir="rtl"] .watch-card h3 { font-family: var(--font-arabic); }
 }
 #cursorGlow.active { opacity: 1; }
 
+.sparkle {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  pointer-events: none;
+  z-index: 42;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, #ffffff 0%, var(--gold) 45%, var(--crimson) 80%, transparent 100%);
+  border-radius: 50%;
+  animation: sparkle-pop 0.9s ease-out forwards;
+}
+@keyframes sparkle-pop {
+  0% { transform: translate(-50%, -50%) scale(0.2) rotate(0deg); opacity: 1; }
+  40% { transform: translate(-50%, -50%) scale(1) rotate(45deg); opacity: 1; }
+  100% { transform: translate(-50%, -70%) scale(0.15) rotate(90deg); opacity: 0; }
+}
+
 /* Utility */
 .text-center { text-align: center; }
 .mt-8 { margin-top: 8px; }
