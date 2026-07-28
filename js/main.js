@@ -424,6 +424,23 @@ function setupCityCardSpotlight() {
 }
 
 // Watch category cards are static, so this only needs to run once.
+/* ---------------- Perfume card: click dots to browse fragrances ---------------- */
+function setupPerfumeSwitcher() {
+  const swatch = document.querySelector(".cat-perfume .swatch");
+  const dots = document.querySelectorAll(".perfume-dot");
+  if (!swatch || !dots.length) return;
+  dots.forEach((dot) => {
+    dot.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const img = dot.getAttribute("data-img");
+      swatch.style.setProperty("--perfume-img", `url("${img}")`);
+      dots.forEach((d) => d.classList.remove("active"));
+      dot.classList.add("active");
+    });
+  });
+}
+
 function setupWatchCardTilt() {
   if (!tiltEnabled) return;
   const maxTilt = 12;
@@ -531,6 +548,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupWholesaleForm();
   setupSecondHand();
   setupWatchCardTilt();
+  setupPerfumeSwitcher();
   setupCursorGlow();
 
   document.getElementById("langSwitch")?.addEventListener("click", toggleLocale);
