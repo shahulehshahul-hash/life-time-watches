@@ -427,12 +427,12 @@ function setupCityCardSpotlight() {
 function setupWatchCardTilt() {
   if (!tiltEnabled) return;
   const maxTilt = 12;
-  document.querySelectorAll(".watch-card:not(.cat-premium)").forEach((card) => {
+  document.querySelectorAll(".watch-card").forEach((card) => {
     card.addEventListener("mouseenter", () => card.classList.add("tilting"));
     card.addEventListener("mousemove", (e) => {
       const rect = card.getBoundingClientRect();
-      const px = (e.clientX - rect.left) / rect.width;
-      const py = (e.clientY - rect.top) / rect.height;
+      const px = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
+      const py = Math.min(1, Math.max(0, (e.clientY - rect.top) / rect.height));
       const rx = (0.5 - py) * maxTilt;
       const ry = (px - 0.5) * maxTilt;
       card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`;
