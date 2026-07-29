@@ -687,7 +687,33 @@ html[dir="rtl"] .city-card h3 { font-family: var(--font-arabic); }
 html[dir="rtl"] .watch-card h3 { font-family: var(--font-arabic); }
 .watch-card p { margin-top: 8px; font-size: 0.85rem; color: var(--silver-muted); }
 
-.cat-classic .swatch::before { background: linear-gradient(135deg, #3a2f22, #171412); }
+.cat-classic .swatch::before {
+  background-image: url("../assets/watch-classic.jpg"), linear-gradient(135deg, #3a2f22, #171412);
+  background-repeat: no-repeat, no-repeat;
+  background-position: center, center;
+  background-size: cover, cover;
+}
+.watch-card.cat-classic:hover {
+  overflow: visible;
+}
+.watch-card.cat-classic:hover .swatch {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  height: 420px;
+  width: 320px;
+  z-index: 25;
+  border-radius: var(--radius);
+  box-shadow: 0 40px 90px -18px rgba(0,0,0,0.85), 0 0 0 1px var(--crimson);
+}
+.watch-card.cat-classic:hover .swatch::before {
+  transform: none;
+}
+.watch-card.cat-classic:hover .body {
+  opacity: 0;
+  pointer-events: none;
+}
 .cat-fashion .swatch::before { background: linear-gradient(135deg, #3a1620, #171214); }
 .cat-digital .swatch::before { background: linear-gradient(135deg, #16232f, #10151a); }
 .cat-electronic .swatch::before { background: linear-gradient(135deg, #1c1c22, #0e0e11); }
