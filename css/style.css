@@ -716,7 +716,7 @@ html[dir="rtl"] .watch-card h3 { font-family: var(--font-arabic); }
 }
 .watch-card.cat-perfume:hover .perfume-photo {
   background-color: var(--ink-card);
-  background-size: contain;
+  background-size: cover;
   background-position: center;
 }
 .watch-card.cat-perfume:hover .body {
