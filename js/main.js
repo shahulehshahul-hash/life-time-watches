@@ -49,8 +49,8 @@ const DICT = {
       sub: "From the Red Sea coast to the southern highlands — Life Time Watches branches are growing across the Kingdom.",
       branchesLabel: "branches",
       branchLabel: "branch",
-      addressPh: "[Address to be added]",
-      phonePh: "[Phone to be added]",
+      addressPh: "Address coming soon",
+      phonePh: "Phone coming soon",
     },
     watches: {
       eyebrow: "Life Time Watches",
@@ -77,6 +77,7 @@ const DICT = {
       formMessage: "Message",
       formSubmit: "Discuss a Wholesale Partnership",
       formNote: "We'll get back to you shortly after reviewing your inquiry.",
+      successHeading: "Inquiry Received",
       formSuccess: "Thank you — your inquiry has been noted. We'll be in touch soon.",
     },
     contact: {
@@ -84,9 +85,9 @@ const DICT = {
       heading: "Find Your Time.",
       sub: "Whether you're looking for a branch, a piece, or a partnership — we're one message away.",
       wholesaleCta: "Wholesale Inquiry",
-      phoneLabel: "Phone", phonePlaceholder: "[Phone to be added]",
-      emailLabel: "Email", emailPlaceholder: "[Email to be added]",
-      hoursLabel: "Hours", hoursPlaceholder: "[Hours to be added]",
+      phoneLabel: "Phone", phonePlaceholder: "Coming soon",
+      emailLabel: "Email", emailPlaceholder: "Coming soon",
+      hoursLabel: "Hours", hoursPlaceholder: "Coming soon",
     },
     footer: {
       blurb: "Parent to Life Time Watches — a Saudi house of watch expertise, wholesale and retail.",
@@ -138,8 +139,8 @@ const DICT = {
       sub: "من ساحل البحر الأحمر إلى المرتفعات الجنوبية — فروع لايف تايم للساعات في نمو مستمر داخل المملكة.",
       branchesLabel: "فروع",
       branchLabel: "فرع",
-      addressPh: "[سيُضاف العنوان]",
-      phonePh: "[سيُضاف رقم الهاتف]",
+      addressPh: "العنوان قريبًا",
+      phonePh: "الهاتف قريبًا",
     },
     watches: {
       eyebrow: "لايف تايم للساعات",
@@ -166,6 +167,7 @@ const DICT = {
       formMessage: "الرسالة",
       formSubmit: "ناقش شراكة بالجملة",
       formNote: "سنعاود التواصل معك بعد مراجعة طلبك.",
+      successHeading: "تم استلام طلبك",
       formSuccess: "شكرًا لك — تم تسجيل طلبك، وسنتواصل معك قريبًا.",
     },
     contact: {
@@ -173,9 +175,9 @@ const DICT = {
       heading: "اعثر على وقتك.",
       sub: "سواء كنت تبحث عن فرع، أو قطعة، أو شراكة — نحن على بعد رسالة واحدة.",
       wholesaleCta: "استفسار جملة",
-      phoneLabel: "الهاتف", phonePlaceholder: "[سيُضاف رقم الهاتف]",
-      emailLabel: "البريد الإلكتروني", emailPlaceholder: "[سيُضاف البريد الإلكتروني]",
-      hoursLabel: "أوقات العمل", hoursPlaceholder: "[ستُضاف أوقات العمل]",
+      phoneLabel: "الهاتف", phonePlaceholder: "قريبًا",
+      emailLabel: "البريد الإلكتروني", emailPlaceholder: "قريبًا",
+      hoursLabel: "أوقات العمل", hoursPlaceholder: "قريبًا",
     },
     footer: {
       blurb: "الشركة الأم لـ لايف تايم للساعات — بيت سعودي متخصص بالساعات، جملة وتجزئة.",
@@ -543,15 +545,17 @@ function wireWhatsAppLinks() {
 /* ---------------- Wholesale form ---------------- */
 function setupWholesaleForm() {
   const form = document.getElementById("wholesaleForm");
-  if (!form) return;
+  const fields = document.getElementById("wholesaleFields");
+  const success = document.getElementById("wholesaleSuccess");
+  if (!form || !fields || !success) return;
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     // TODO: wire this up to a real backend or form service (e.g. Formspree, Google Sheets via Apps Script).
-    const locale = getLocale();
-    const note = form.querySelector(".form-note");
-    if (note) note.textContent = DICT[locale].wholesale.formSuccess;
-    form.querySelectorAll("input, select, textarea").forEach((f) => (f.disabled = true));
-    form.querySelector(".form-submit").setAttribute("disabled", "true");
+    fields.classList.add("hiding");
+    setTimeout(() => {
+      fields.hidden = true;
+      success.hidden = false;
+    }, 250);
   });
 }
 

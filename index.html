@@ -183,21 +183,40 @@
         </div>
       </div>
       <div class="watch-card cat-fashion reveal reveal-delay-2">
-        <div class="swatch"></div>
+        <div class="swatch">
+          <svg class="swatch-motif" width="72" height="72" viewBox="0 0 72 72" fill="none">
+            <circle cx="36" cy="36" r="24" stroke="currentColor" stroke-width="1.2" opacity="0.55"/>
+            <circle cx="36" cy="36" r="17" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+            <path d="M36 22v14l9 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity="0.7"/>
+            <path d="M30 10h12M30 62h12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity="0.55"/>
+          </svg>
+        </div>
         <div class="body">
           <h3 data-i18n="watches.fashionTitle">Fashion</h3>
           <p data-i18n="watches.fashionBody">Statement designs that follow the season's style.</p>
         </div>
       </div>
       <div class="watch-card cat-digital reveal reveal-delay-3">
-        <div class="swatch"></div>
+        <div class="swatch">
+          <svg class="swatch-motif" width="72" height="72" viewBox="0 0 72 72" fill="none">
+            <rect x="16" y="20" width="40" height="32" rx="8" stroke="currentColor" stroke-width="1.2" opacity="0.55"/>
+            <path d="M25 30h22M25 37h22M25 44h14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity="0.6"/>
+            <path d="M28 10l4 10M44 10l-4 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity="0.5"/>
+          </svg>
+        </div>
         <div class="body">
           <h3 data-i18n="watches.digitalTitle">Digital</h3>
           <p data-i18n="watches.digitalBody">Modern digital displays for everyday clarity.</p>
         </div>
       </div>
       <div class="watch-card cat-electronic reveal reveal-delay-1">
-        <div class="swatch"></div>
+        <div class="swatch">
+          <svg class="swatch-motif" width="72" height="72" viewBox="0 0 72 72" fill="none">
+            <circle cx="36" cy="36" r="22" stroke="currentColor" stroke-width="1.2" opacity="0.55"/>
+            <circle cx="36" cy="36" r="4" stroke="currentColor" stroke-width="1.2" opacity="0.7"/>
+            <path d="M36 14v8M36 58v8M14 36h8M58 36h8M20 20l6 6M52 52l-6-6M52 20l-6 6M20 52l6-6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/>
+          </svg>
+        </div>
         <div class="body">
           <h3 data-i18n="watches.electronicTitle">Electronic</h3>
           <p data-i18n="watches.electronicBody">Smart features paired with dependable build quality.</p>
@@ -244,6 +263,7 @@
     </div>
 
     <form class="form-card reveal reveal-delay-2" id="wholesaleForm">
+      <div class="form-fields" id="wholesaleFields">
       <div class="field">
         <label data-i18n="wholesale.formName">Name</label>
         <input type="text" required>
@@ -280,6 +300,14 @@
       </div>
       <button type="submit" class="btn btn-primary form-submit" data-i18n="wholesale.formSubmit">Discuss a Wholesale Partnership</button>
       <p class="form-note" data-i18n="wholesale.formNote">We'll get back to you shortly after reviewing your inquiry.</p>
+      </div>
+      <div class="form-success" id="wholesaleSuccess" hidden>
+        <div class="success-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12l6 6L20 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3 data-i18n="wholesale.successHeading">Inquiry Received</h3>
+        <p data-i18n="wholesale.formSuccess">Thank you — your inquiry has been noted. We'll be in touch soon.</p>
+      </div>
     </form>
   </div>
 </section>
@@ -298,15 +326,15 @@
     <div class="contact-info reveal reveal-delay-4">
       <div class="contact-info-item">
         <div class="label" data-i18n="contact.phoneLabel">Phone</div>
-        <div class="value ph" data-i18n="contact.phonePlaceholder">[Phone to be added]</div>
+        <div class="value ph" data-i18n="contact.phonePlaceholder">Coming soon</div>
       </div>
       <div class="contact-info-item">
         <div class="label" data-i18n="contact.emailLabel">Email</div>
-        <div class="value ph" data-i18n="contact.emailPlaceholder">[Email to be added]</div>
+        <div class="value ph" data-i18n="contact.emailPlaceholder">Coming soon</div>
       </div>
       <div class="contact-info-item">
         <div class="label" data-i18n="contact.hoursLabel">Hours</div>
-        <div class="value ph" data-i18n="contact.hoursPlaceholder">[Hours to be added]</div>
+        <div class="value ph" data-i18n="contact.hoursPlaceholder">Coming soon</div>
       </div>
     </div>
   </div>
@@ -350,14 +378,9 @@
         <h4 data-i18n="footer.contactHeading">Contact</h4>
         <ul>
           <li><a href="#" id="waFooterLink" target="_blank" rel="noopener" data-i18n="actions.whatsapp">WhatsApp</a></li>
-          <li><span class="ph" data-i18n="contact.phonePlaceholder">[Phone to be added]</span></li>
-          <li><span class="ph" data-i18n="contact.emailPlaceholder">[Email to be added]</span></li>
+          <li><span class="ph" data-i18n="contact.phonePlaceholder">Coming soon</span></li>
+          <li><span class="ph" data-i18n="contact.emailPlaceholder">Coming soon</span></li>
         </ul>
-        <div class="social-row mt-16">
-          <a href="#" aria-label="Instagram"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
-          <a href="#" aria-label="X"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l16 16M20 4L4 20"/></svg></a>
-          <a href="#" aria-label="Snapchat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3c3 0 4.5 2.2 4.5 5 0 1.3-.1 2.1 0 2.8.9.3 1.7 0 2.2 1-.3 1-1.6 1.1-2 1.7-.3.5.6 2 3.3 2.4-.1.9-1.4 1.1-2.4 1.3-.1.5-.2 1.1-.9 1.1-1 0-1.7.6-3.7.6s-2.7-.6-3.7-.6c-.7 0-.8-.6-.9-1.1-1-.2-2.3-.4-2.4-1.3 2.7-.4 3.6-1.9 3.3-2.4-.4-.6-1.7-.7-2-1.7.5-1 1.3-.7 2.2-1 .1-.7 0-1.5 0-2.8 0-2.8 1.5-5 4.5-5Z"/></svg></a>
-        </div>
       </div>
     </div>
     <div class="footer-bottom">

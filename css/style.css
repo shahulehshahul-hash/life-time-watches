@@ -620,7 +620,26 @@ html[dir="rtl"] .city-card h3 { font-family: var(--font-arabic); }
   color: var(--silver);
 }
 .city-card .branch-item + .branch-item { margin-top: 12px; padding-top: 12px; }
-.city-card .branch-item .ph { color: var(--silver-dark); font-style: italic; }
+.city-card .branch-item .ph {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  color: var(--silver-dark);
+  font-size: 0.72rem;
+  font-style: normal;
+}
+.city-card .branch-item .ph::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+}
 .city-card .chevron-indicator {
   position: absolute;
   top: 24px;
@@ -717,6 +736,16 @@ html[dir="rtl"] .watch-card h3 { font-family: var(--font-arabic); }
 .cat-fashion .swatch::before { background: linear-gradient(135deg, #3a1620, #171214); }
 .cat-digital .swatch::before { background: linear-gradient(135deg, #16232f, #10151a); }
 .cat-electronic .swatch::before { background: linear-gradient(135deg, #1c1c22, #0e0e11); }
+.swatch-motif {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  z-index: 1;
+  color: var(--silver);
+  transition: transform 0.5s var(--ease), color 0.5s var(--ease), opacity 0.5s var(--ease);
+}
+.watch-card:hover .swatch-motif { transform: scale(1.1) rotate(4deg); color: var(--crimson); }
+@media (prefers-reduced-motion: reduce) { .watch-card:hover .swatch-motif { transform: none; } }
 .perfume-photo {
   position: absolute;
   inset: 0;
@@ -817,6 +846,8 @@ html[dir="rtl"] .watch-card h3 { font-family: var(--font-arabic); }
 .wholesale-points .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--crimson); margin-top: 8px; flex-shrink: 0; }
 
 .form-card {
+  position: relative;
+  overflow: hidden;
   background: var(--ink-card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -824,6 +855,48 @@ html[dir="rtl"] .watch-card h3 { font-family: var(--font-arabic); }
 }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 @media (max-width: 520px) { .form-row { grid-template-columns: 1fr; } }
+.form-fields { transition: opacity 0.3s ease; }
+.form-fields.hiding { opacity: 0; pointer-events: none; }
+.form-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 28px 12px;
+  animation: success-in 0.5s var(--ease) both;
+}
+.form-success[hidden] { display: none; }
+.success-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(214,34,46,0.14);
+  color: var(--crimson);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  box-shadow: 0 0 0 1px rgba(214,34,46,0.3);
+  animation: success-pop 0.5s var(--ease) 0.1s both;
+}
+.form-success h3 {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+html[dir="rtl"] .form-success h3 { font-family: var(--font-arabic); }
+.form-success p { margin-top: 10px; color: var(--silver); font-size: 0.92rem; max-width: 320px; }
+@keyframes success-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes success-pop {
+  0% { transform: scale(0.5); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .form-success, .success-icon { animation: none; }
+}
 .field { display: flex; flex-direction: column; gap: 8px; margin-top: 18px; }
 .field:first-child { margin-top: 0; }
 .field label {
@@ -878,7 +951,25 @@ html[dir="rtl"] .watch-card h3 { font-family: var(--font-arabic); }
 }
 .contact-info-item .label { font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--silver-muted); }
 .contact-info-item .value { margin-top: 8px; font-size: 0.95rem; color: var(--bone); }
-.contact-info-item .value.ph { color: var(--silver-dark); font-style: italic; }
+.contact-info-item .value.ph {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  color: var(--silver-dark);
+  font-size: 0.82rem;
+  font-style: normal;
+}
+.contact-info-item .value.ph::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+}
 
 /* ---------- Footer ---------- */
 .footer {
