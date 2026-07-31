@@ -534,16 +534,12 @@ function setupWatchCardTilt() {
 function setupCursorGlow() {
   const glow = document.getElementById("cursorGlow");
   if (!glow || !tiltEnabled) return;
-  let shown = false;
   let lastSparkle = 0;
   document.addEventListener(
     "mousemove",
     (e) => {
       glow.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
-      if (!shown) {
-        glow.classList.add("active");
-        shown = true;
-      }
+      glow.classList.add("active");
       const now = performance.now();
       if (now - lastSparkle > 60) {
         lastSparkle = now;
