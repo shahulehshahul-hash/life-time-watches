@@ -712,27 +712,6 @@ html[dir="rtl"] .watch-card h3 { font-family: var(--font-arabic); }
   background-position: center, center;
   background-size: cover, cover;
 }
-.watch-card.cat-classic:hover {
-  overflow: visible;
-}
-.watch-card.cat-classic:hover .swatch {
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  transform: translateX(-50%);
-  height: 420px;
-  width: 320px;
-  z-index: 25;
-  border-radius: var(--radius);
-  box-shadow: 0 40px 90px -18px rgba(0,0,0,0.85), 0 0 0 1px var(--crimson);
-}
-.watch-card.cat-classic:hover .swatch::before {
-  transform: none;
-}
-.watch-card.cat-classic:hover .body {
-  opacity: 0;
-  pointer-events: none;
-}
 .cat-fashion .swatch::before { background: linear-gradient(135deg, #3a1620, #171214); }
 .cat-digital .swatch::before { background: linear-gradient(135deg, #16232f, #10151a); }
 .cat-electronic .swatch::before { background: linear-gradient(135deg, #1c1c22, #0e0e11); }
@@ -753,82 +732,70 @@ html[dir="rtl"] .watch-card h3 { font-family: var(--font-arabic); }
   background-repeat: no-repeat;
   background-position: center 38%;
   background-size: cover;
-  transition: opacity 0.25s ease;
 }
-.watch-card.cat-perfume:hover {
-  overflow: visible;
-}
-.watch-card.cat-perfume:hover .swatch {
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  transform: translateX(-50%);
-  height: 420px;
-  width: 320px;
-  z-index: 25;
-  border-radius: var(--radius);
-  box-shadow: 0 40px 90px -18px rgba(0,0,0,0.85), 0 0 0 1px var(--crimson);
-}
-.watch-card.cat-perfume:hover .perfume-photo {
-  background-color: var(--ink-card);
-  background-size: cover;
-  background-position: center;
-}
-.watch-card.cat-perfume:hover .body {
-  opacity: 0;
-  pointer-events: none;
-}
-.perfume-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 6;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  border: 1px solid rgba(255,255,255,0.4);
-  background: rgba(11,11,12,0.6);
-  color: #fff;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s var(--ease);
-}
-.perfume-arrow.prev { inset-inline-start: 10px; }
-.perfume-arrow.next { inset-inline-end: 10px; }
-.perfume-arrow:hover { background: var(--crimson); border-color: var(--crimson); }
-.watch-card.cat-perfume:hover .perfume-arrow { display: flex; }
 .cat-premium .swatch::before {
   background-image: url("../assets/watch-premium.jpg"), linear-gradient(135deg, #3a2c12, #17130a);
   background-repeat: no-repeat, no-repeat;
   background-position: 58% 50%, center;
   background-size: 480px auto, cover;
 }
-.watch-card.cat-premium:hover {
-  overflow: visible;
+.cat-classic .swatch, .cat-premium .swatch, .cat-perfume .swatch {
+  cursor: zoom-in;
 }
-.watch-card.cat-premium:hover .swatch {
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  transform: translateX(-50%);
-  height: 420px;
-  width: auto;
-  aspect-ratio: 671 / 852;
-  z-index: 25;
-  border-radius: var(--radius);
-  box-shadow: 0 40px 90px -18px rgba(0,0,0,0.85), 0 0 0 1px var(--crimson);
-}
-.watch-card.cat-premium:hover .swatch::before {
-  background-color: var(--ink-card);
-  background-size: cover, cover;
-  background-position: center, center;
-  transform: none;
-}
-.watch-card.cat-premium:hover .body {
+
+/* ---------- Shared lightbox for Classic / Premium / Perfume ---------- */
+.card-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(6,6,7,0.78);
   opacity: 0;
   pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.card-lightbox.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.card-lightbox-inner {
+  position: relative;
+  width: min(84vw, 380px);
+  aspect-ratio: 320 / 420;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--crimson);
+  box-shadow: 0 40px 90px -18px rgba(0,0,0,0.85);
+  background-color: var(--ink-card);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  transform: scale(0.92);
+  transition: transform 0.3s var(--ease);
+}
+.card-lightbox.open .card-lightbox-inner {
+  transform: scale(1);
+}
+.card-lightbox-close {
+  position: absolute;
+  top: -44px;
+  right: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.4);
+  background: rgba(11,11,12,0.6);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.card-lightbox-close:hover { background: var(--crimson); border-color: var(--crimson); }
+@media (prefers-reduced-motion: reduce) {
+  .card-lightbox, .card-lightbox-inner { transition: none; }
 }
 
 /* ---------- Wholesale ---------- */

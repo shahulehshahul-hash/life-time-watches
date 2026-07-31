@@ -176,7 +176,7 @@
 
     <div class="watch-cat-grid">
       <div class="watch-card cat-classic reveal reveal-delay-1">
-        <div class="swatch"></div>
+        <div class="swatch" data-lightbox="assets/watch-classic.jpg"></div>
         <div class="body">
           <h3 data-i18n="watches.classicTitle">Classic</h3>
           <p data-i18n="watches.classicBody">Traditional analog timepieces built to last generations.</p>
@@ -223,14 +223,8 @@
         </div>
       </div>
       <div class="watch-card cat-perfume reveal reveal-delay-2">
-        <div class="swatch">
+        <div class="swatch" data-lightbox="perfume">
           <div class="perfume-photo" id="perfumePhoto"></div>
-          <button class="perfume-arrow prev" type="button" aria-label="Previous fragrance">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <button class="perfume-arrow next" type="button" aria-label="Next fragrance">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
         </div>
         <div class="body">
           <h3 data-i18n="watches.perfumeTitle">Perfume</h3>
@@ -238,7 +232,7 @@
         </div>
       </div>
       <div class="watch-card cat-premium reveal reveal-delay-3">
-        <div class="swatch"></div>
+        <div class="swatch" data-lightbox="assets/watch-premium.jpg"></div>
         <div class="body">
           <h3 data-i18n="watches.premiumTitle">Premium</h3>
           <p data-i18n="watches.premiumBody">Refined pieces for those who notice the details.</p>
@@ -396,6 +390,21 @@
 <a class="fab-whatsapp" id="waFab" href="#" target="_blank" rel="noopener" aria-label="WhatsApp">
   <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.02 3.5a8.9 8.9 0 0 0-7.7 13.36L3 21l4.27-1.28a8.9 8.9 0 0 0 4.74 1.36h.01c4.92 0 8.9-3.98 8.9-8.9a8.86 8.86 0 0 0-2.62-4.86Zm-5.58 13.7h-.01a7.4 7.4 0 0 1-3.77-1.03l-.27-.16-2.8.84.84-2.73-.18-.28a7.4 7.4 0 1 1 13.79-3.76 7.42 7.42 0 0 1-7.6 7.12Zm4.06-5.54c-.22-.11-1.3-.64-1.5-.72-.2-.07-.35-.11-.5.11s-.58.72-.71.87-.26.16-.48.05a6.06 6.06 0 0 1-1.78-1.1 6.68 6.68 0 0 1-1.23-1.53c-.13-.22 0-.34.1-.45.1-.1.22-.26.33-.4.1-.12.14-.22.22-.36.07-.15.04-.28-.02-.4-.07-.11-.5-1.2-.68-1.65-.18-.43-.36-.37-.5-.38h-.43c-.15 0-.4.06-.6.28-.22.22-.83.81-.83 1.98s.85 2.3.97 2.46c.11.15 1.68 2.56 4.07 3.59.57.24 1.01.39 1.36.5.57.18 1.09.15 1.5.1.46-.07 1.4-.57 1.6-1.13.2-.55.2-1.03.14-1.13-.06-.1-.2-.16-.42-.27Z"/></svg>
 </a>
+
+<!-- Shared lightbox for Classic / Premium / Perfume card images -->
+<div class="card-lightbox" id="cardLightbox" aria-hidden="true">
+  <div class="card-lightbox-inner" id="cardLightboxInner">
+    <button class="perfume-arrow prev" id="lightboxPrev" type="button" aria-label="Previous">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <button class="perfume-arrow next" id="lightboxNext" type="button" aria-label="Next">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+  <button class="card-lightbox-close" id="cardLightboxClose" type="button" aria-label="Close">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/></svg>
+  </button>
+</div>
 
 <script src="js/main.js"></script>
 <div id="cursorGlow" aria-hidden="true"></div>

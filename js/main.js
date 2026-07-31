@@ -435,29 +435,68 @@ const PERFUMES = [
 ];
 
 function setupPerfumeSwitcher() {
+  // Sets the small collapsed card's preview image (Ivory by default). Cycling
+  // through all four now happens inside the lightbox — see setupCardLightbox().
   const photo = document.getElementById("perfumePhoto");
-  const prevBtn = document.querySelector(".perfume-arrow.prev");
-  const nextBtn = document.querySelector(".perfume-arrow.next");
-  if (!photo || !prevBtn || !nextBtn) return;
-  let index = 0;
+  if (!photo) return;
+  photo.style.backgroundImage = `url("${PERFUMES[0].file}")`;
+}
 
-  function render() {
-    photo.style.backgroundImage = `url("${PERFUMES[index].file}")`;
-    photo.setAttribute("aria-label", PERFUMES[index].name);
+function setupCardLightbox() {
+  const lightbox = document.getElementById("cardLightbox");
+  const inner = document.getElementById("cardLightboxInner");
+  const prevBtn = document.getElementById("lightboxPrev");
+  const nextBtn = document.getElementById("lightboxNext");
+  const closeBtn = document.getElementById("cardLightboxClose");
+  const triggers = document.querySelectorAll(".swatch[data-lightbox]");
+  if (!lightbox || !inner || !triggers.length) return;
+
+  let perfumeIndex = 0;
+  let isPerfume = false;
+
+  function renderPerfume() {
+    inner.style.backgroundImage = `url("${PERFUMES[perfumeIndex].file}")`;
   }
-  render();
 
+  function open(trigger) {
+    const kind = trigger.getAttribute("data-lightbox");
+    isPerfume = kind === "perfume";
+    if (isPerfume) {
+      perfumeIndex = 0;
+      renderPerfume();
+      prevBtn.style.display = "flex";
+      nextBtn.style.display = "flex";
+    } else {
+      inner.style.backgroundImage = `url("${kind}")`;
+      prevBtn.style.display = "none";
+      nextBtn.style.display = "none";
+    }
+    lightbox.classList.add("open");
+  }
+
+  function close() {
+    lightbox.classList.remove("open");
+  }
+
+  triggers.forEach((trigger) => {
+    trigger.addEventListener("click", () => open(trigger));
+  });
+  closeBtn.addEventListener("click", close);
+  lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) close();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") close();
+  });
   prevBtn.addEventListener("click", (e) => {
-    e.preventDefault();
     e.stopPropagation();
-    index = (index - 1 + PERFUMES.length) % PERFUMES.length;
-    render();
+    perfumeIndex = (perfumeIndex - 1 + PERFUMES.length) % PERFUMES.length;
+    renderPerfume();
   });
   nextBtn.addEventListener("click", (e) => {
-    e.preventDefault();
     e.stopPropagation();
-    index = (index + 1) % PERFUMES.length;
-    render();
+    perfumeIndex = (perfumeIndex + 1) % PERFUMES.length;
+    renderPerfume();
   });
 }
 
@@ -465,16 +504,24 @@ function setupWatchCardTilt() {
   if (!tiltEnabled) return;
   const maxTilt = 12;
   document.querySelectorAll(".watch-card").forEach((card) => {
+    let ticking = false;
+    let lastEvent = null;
     card.addEventListener("mouseenter", () => card.classList.add("tilting"));
     card.addEventListener("mousemove", (e) => {
-      const rect = card.getBoundingClientRect();
-      const px = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
-      const py = Math.min(1, Math.max(0, (e.clientY - rect.top) / rect.height));
-      const rx = (0.5 - py) * maxTilt;
-      const ry = (px - 0.5) * maxTilt;
-      card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`;
-      card.style.setProperty("--mx", `${px * 100}%`);
-      card.style.setProperty("--my", `${py * 100}%`);
+      lastEvent = e;
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const rect = card.getBoundingClientRect();
+        const px = Math.min(1, Math.max(0, (lastEvent.clientX - rect.left) / rect.width));
+        const py = Math.min(1, Math.max(0, (lastEvent.clientY - rect.top) / rect.height));
+        const rx = (0.5 - py) * maxTilt;
+        const ry = (px - 0.5) * maxTilt;
+        card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`;
+        card.style.setProperty("--mx", `${px * 100}%`);
+        card.style.setProperty("--my", `${py * 100}%`);
+        ticking = false;
+      });
     });
     card.addEventListener("mouseleave", () => {
       card.classList.remove("tilting");
@@ -571,6 +618,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupSecondHand();
   setupWatchCardTilt();
   setupPerfumeSwitcher();
+  setupCardLightbox();
   setupCursorGlow();
 
   document.getElementById("langSwitch")?.addEventListener("click", toggleLocale);
